@@ -1,11 +1,11 @@
-FROM node:24.22.1-bookworm-slim AS frontend-builder
+FROM node:26.13.0-bookworm-slim AS frontend-builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY . .
 RUN npm run build
 
-FROM node:24.22.1-bookworm-slim
+FROM node:26.13.0-bookworm-slim
 WORKDIR /app
 COPY --from=frontend-builder --chown=node:node /app/dist ./dist
 COPY --chown=node:node server/server-sync.mjs ./server/server-sync.mjs
