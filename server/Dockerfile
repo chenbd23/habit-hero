@@ -1,4 +1,4 @@
-FROM node:24.22.1-bookworm-slim
+FROM node:26.13.0-bookworm-slim
 WORKDIR /app
 COPY --chown=node:node server/package.json server/package.json
 COPY --chown=node:node server/src server/src
