@@ -7,7 +7,7 @@ for(const [path,entry]of Object.entries(lock.packages)){
  if(!path)continue;const root=resolve(path);
  let names;try{names=readdirSync(root);}catch{continue;} // platform-specific optional dependencies
  let files=names.filter(n=>/^(licen[sc]e|copying|notice)([.\-_]|$)/i.test(n)&&statSync(resolve(root,n)).isFile());
- const supplemental={'node_modules/@vue/devtools-api':'vue-devtools-LICENSE.txt','node_modules/dlv':'dlv-LICENSE.txt'}[path];
+ const supplemental={'node_modules/@vue/devtools-api':'vue-devtools-LICENSE.txt','node_modules/dlv':'dlv-LICENSE.txt'}[path] ?? (path==='node_modules/@napi-rs/lzma-linux-x64-gnu' && entry.version==='1.5.1' && entry.license==='MIT' ? 'napi-rs-lzma-1.5.1-MIT.txt' : undefined);
  if(!files.length&&supplemental){parts.push(`\n===== ${path} @ ${entry.version} =====\n`,readFileSync('licenses/'+supplemental,'utf8'));continue;}
  if(!files.length&&path.includes('node_modules/@esbuild/')){parts.push(`\n===== ${path} @ ${entry.version} (esbuild MIT) =====\n`,readFileSync('node_modules/esbuild/LICENSE.md','utf8'));continue;}
  if(!files.length&&path.includes('node_modules/@rollup/')){parts.push(`\n===== ${path} @ ${entry.version} (Rollup MIT) =====\n`,readFileSync('node_modules/rollup/LICENSE.md','utf8'));continue;}

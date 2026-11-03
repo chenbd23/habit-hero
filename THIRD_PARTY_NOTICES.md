@@ -11,6 +11,7 @@ Pinned supplemental sources (packages omit standalone license files):
 - Vue Devtools API 6.6.4: https://github.com/vuejs/devtools-v6/blob/v6.6.4/LICENSE
 - dlv 1.1.3 (MIT terms reproduced from its license declaration, with author attribution from package metadata; historical license URL now redirects to unrelated content): https://github.com/developit/dlv/blob/1.1.3/README.md links to https://oss.ninja/mit/developit/
 - esbuild and Rollup platform binary packages use the license shipped with their matching wrapper package; these build binaries are not copied to the web runtime image.
+- @napi-rs/lzma-linux-x64-gnu 1.5.1: the upstream package declares MIT but omits a standalone license and copyright notice. Standard MIT terms and a downstream attribution note are supplied in `Habit_Hero_h5/licenses/napi-rs-lzma-1.5.1-MIT.txt`, pinned to https://github.com/Brooooooklyn/lzma/tree/f164df92d83e095f195d628b1a68a141ae2eb638. This optional Linux x64 build dependency is not copied to the web runtime image.
 - Node.js 24.22.1: https://github.com/nodejs/node/blob/v24.22.1/LICENSE (includes bundled component notices).
 - Base container OS notices remain in `/usr/share/doc/*/copyright`; Caddy is a separately distributed upstream image, Apache-2.0: https://github.com/caddyserver/caddy/blob/master/LICENSE.
 
