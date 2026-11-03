@@ -1,0 +1,18 @@
+name: Verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.22.1
+          cache: npm
+          cache-dependency-path: Habit_Hero_h5/package-lock.json
+      - run: npm ci --prefix Habit_Hero_h5
+      - run: npm run build --prefix Habit_Hero_h5
+      - run: node --test --test-timeout=30000 server/test/*.test.mjs Habit_Hero_h5/tests/*.test.mjs
+      - run: npm audit --prefix Habit_Hero_h5 --audit-level=moderate

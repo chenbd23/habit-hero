@@ -1,0 +1,7 @@
+{$HH_DOMAIN} {
+    encode zstd gzip
+    reverse_proxy web:4000 {
+        header_up X-HH-Edge-Key {$HH_EDGE_KEY}
+        header_up X-HH-Edge-IP {remote_host}
+    }
+}

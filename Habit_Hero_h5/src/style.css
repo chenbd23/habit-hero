@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 样式文件，保留原有的全局样式 */
+body {
+  background-color: #FFFBEB;
+  /* Dot pattern */
+  background-image: radial-gradient(#E2E8F0 20%, transparent 20%), radial-gradient(#E2E8F0 20%, transparent 20%);
+  background-position: 0 0, 15px 15px;
+  background-size: 30px 30px;
+  font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", sans-serif;
+  overscroll-behavior: none;
+}
+
+/* Hide scrollbar for cleaner look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8; 
+}
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>习惯小英雄</title>
+    <meta name="theme-color" content="#FFFBEB">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="习惯小英雄">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/hero-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/hero-180.png">
+    <link rel="manifest" href="/manifest.webmanifest?v=3.2.0">
+    <style>
+      body {
+        background-color: #FFFBEB;
+        /* Dot pattern */
+        background-image: radial-gradient(#E2E8F0 20%, transparent 20%), radial-gradient(#E2E8F0 20%, transparent 20%);
+        background-position: 0 0, 15px 15px;
+        background-size: 30px 30px;
+        font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", sans-serif;
+        overscroll-behavior: none;
+      }
+      
+      /* Hide scrollbar for cleaner look */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #CBD5E1; 
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94A3B8; 
+      }
+    </style>
+</head>
+  <body class="text-slate-900 antialiased selection:bg-accent selection:text-black">
+    <div id="root"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

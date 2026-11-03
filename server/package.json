@@ -1,0 +1,14 @@
+{
+  "name": "habit-hero-sync",
+  "version": "3.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.22.1 <25"
+  },
+  "scripts": {
+    "start": "node src/index.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "license": "MIT"
+}

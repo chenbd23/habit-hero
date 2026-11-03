@@ -1,0 +1,77 @@
+name: ${COMPOSE_PROJECT_NAME:-habit-hero}
+
+services:
+  sync:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: "4318"
+      HH_DB_PATH: ${HH_DB_PATH:-/data/habit-hero.sqlite}
+      HH_GATEWAY_KEY: ${HH_GATEWAY_KEY:?Run bash scripts/setup.sh first}
+      HH_REGISTRATION: ${HH_REGISTRATION:-invite}
+      HH_MAX_USERS: ${HH_MAX_USERS:-100}
+      HH_MAX_FAMILIES: ${HH_MAX_FAMILIES:-100}
+      HH_ASSET_BYTES: ${HH_ASSET_BYTES:-268435456}
+      HH_FAMILY_BYTES: ${HH_FAMILY_BYTES:-335544320}
+      HH_DB_MAX_BYTES: ${HH_DB_MAX_BYTES:-2147483648}
+      HH_MIN_FREE_BYTES: ${HH_MIN_FREE_BYTES:-268435456}
+    volumes:
+      - sync-data:/data
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 128
+    restart: unless-stopped
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    read_only: true
+    tmpfs: [/tmp]
+
+  web:
+    build:
+      context: ./Habit_Hero_h5
+    environment:
+      NODE_ENV: production
+      PORT: "4000"
+      SYNC_SERVER_URL: http://sync:4318
+      HH_GATEWAY_KEY: ${HH_GATEWAY_KEY:?Run bash scripts/setup.sh first}
+      HH_EDGE_KEY: ${HH_EDGE_KEY:?Run bash scripts/setup.sh first}
+    ports:
+      - "${HH_WEB_BIND:-127.0.0.1}:${HH_WEB_PORT:-4319}:4000"
+    depends_on:
+      sync:
+        condition: service_healthy
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 128
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+
+  caddy:
+    image: caddy:2-alpine
+    profiles: [https]
+    environment:
+      HH_DOMAIN: ${HH_DOMAIN:-habit.example.com}
+      HH_EDGE_KEY: ${HH_EDGE_KEY:?Run bash scripts/setup.sh first}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      web:
+        condition: service_healthy
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 128
+    restart: unless-stopped
+
+volumes:
+  sync-data:
+  caddy-data:
+  caddy-config:
